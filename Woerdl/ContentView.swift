@@ -22,8 +22,16 @@ struct ContentView: View {
     var body: some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
                 ForEach(1...squareCount, id: \.self) { _ in
-                    Rectangle()
-                        .aspectRatio(1, contentMode: .fill)
+                    ZStack() {
+                        Rectangle()
+                            .aspectRatio(1, contentMode: .fill)
+                            .cornerRadius(4)
+                        TextField("A", text: .constant("B"))
+                            .multilineTextAlignment(.center)
+                            .font(.system(.title))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
         }
             .padding()
