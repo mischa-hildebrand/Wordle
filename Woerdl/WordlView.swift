@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct WordlView: View {
     static let width = 5
     static let height = 6
     @Binding var letters: [String]
@@ -41,6 +41,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(letters: .constant([String](repeating: "", count: ContentView.width * ContentView.height)))
+        WordlView(letters: .constant([String](repeating: "", count: WordlView.width * WordlView.height)))
     }
 }
