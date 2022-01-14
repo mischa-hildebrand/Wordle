@@ -11,7 +11,7 @@ import SwiftUI
 struct WoerdlApp: App {
     var body: some Scene {
         WindowGroup {
-            WordlView(letters: .constant([String](repeating: "", count: WordlView.width * WordlView.height)))
+            WordlView()
         }
     }
 }

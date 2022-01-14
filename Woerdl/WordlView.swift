@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct WordlView: View {
-    static let width = 5
-    static let height = 6
-    @Binding var letters: [String]
+
+    @ObservedObject var viewModel = WordlViewModel()
 
     private var columns: [GridItem] {
-        .init(repeating: GridItem(.flexible()), count: Self.width)
+        .init(repeating: GridItem(.flexible()), count: viewModel.width)
     }
 
     var squareCount: Int {
-        Self.width * Self.height
+        viewModel.width * viewModel.height
     }
 
     var body: some View {
@@ -27,7 +26,7 @@ struct WordlView: View {
                         Rectangle()
                             .aspectRatio(1, contentMode: .fill)
                             .cornerRadius(4)
-                        TextField("•", text: $letters[index - 1])
+                        TextField("•", text: $viewModel.letters[index - 1])
                             .multilineTextAlignment(.center)
                             .font(.system(.title))
                             .foregroundColor(.white)
@@ -41,6 +40,6 @@ struct WordlView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        WordlView(letters: .constant([String](repeating: "", count: WordlView.width * WordlView.height)))
+        WordlView()
     }
 }
