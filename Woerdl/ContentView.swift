@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    let width = 5
-    let height = 6
+    static let width = 5
+    static let height = 6
+    @Binding var letters: [String]
 
     private var columns: [GridItem] {
-        .init(repeating: GridItem(.flexible()), count: width)
+        .init(repeating: GridItem(.flexible()), count: Self.width)
     }
 
-    private var squareCount: Int {
-        width * height
+    var squareCount: Int {
+        Self.width * Self.height
     }
 
     var body: some View {
@@ -26,7 +27,7 @@ struct ContentView: View {
                         Rectangle()
                             .aspectRatio(1, contentMode: .fill)
                             .cornerRadius(4)
-                        TextField("\(index)", text: .constant("\(index)"))
+                        TextField("•", text: $letters[index - 1])
                             .multilineTextAlignment(.center)
                             .font(.system(.title))
                             .foregroundColor(.white)
@@ -40,6 +41,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(letters: .constant([String](repeating: "", count: ContentView.width * ContentView.height)))
     }
 }
