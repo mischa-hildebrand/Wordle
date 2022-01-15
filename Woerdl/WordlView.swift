@@ -32,6 +32,7 @@ struct WordlView: View {
                                 .aspectRatio(1, contentMode: .fill)
                                 .cornerRadius(4)
                             Text(String(viewModel.letters[row][column] ?? Character(" ")))
+                                .textCase(.uppercase)
                                 .multilineTextAlignment(.center)
                                 .font(.system(.title))
                                 .foregroundColor(Color(.systemBackground))
