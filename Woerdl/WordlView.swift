@@ -28,14 +28,16 @@ struct WordlView: View {
                 ForEach(0..<viewModel.height) { row in
                     ForEach(0..<viewModel.width) { column in
                         ZStack() {
-                            Rectangle()
+                            RoundedRectangle(cornerRadius: 4)
+                                .style(withStroke: .secondary, lineWidth: 2, fill: .primary)
                                 .aspectRatio(1, contentMode: .fill)
-                                .cornerRadius(4)
-                            Text(String(viewModel.letters[row][column] ?? Character(" ")))
-                                .textCase(.uppercase)
-                                .multilineTextAlignment(.center)
-                                .font(.system(.title))
-                                .foregroundColor(Color(.systemBackground))
+                            if let letter = viewModel.letters[row][column] {
+                                Text(String(letter))
+                                    .textCase(.uppercase)
+                                    .multilineTextAlignment(.center)
+                                    .font(.system(.title).weight(.bold))
+                                    .foregroundColor(Color(.systemBackground))
+                            }
                         }
                         .id("matrix_\(row)x\(column)")
                     }
@@ -67,4 +69,17 @@ struct ContentView_Previews: PreviewProvider {
             WordlView()
         }
     }
+}
+
+extension Shape {
+    
+    func style<StrokeStyle: ShapeStyle, FillStyle: ShapeStyle>(
+        withStroke strokeContent: StrokeStyle,
+        lineWidth: CGFloat = 1,
+        fill fillContent: FillStyle
+    ) -> some View {
+        stroke(strokeContent, lineWidth: lineWidth)
+            .background(fill(fillContent))
+    }
+    
 }
