@@ -27,21 +27,9 @@ struct WordlView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
                 ForEach(0..<viewModel.height) { row in
                     ForEach(0..<viewModel.width) { column in
-                        ZStack() {
-                            RoundedRectangle(cornerRadius: 4)
-                                .style(withStroke: .secondary, lineWidth: 2, fill: .primary)
-                                .aspectRatio(1, contentMode: .fill)
-                            if let letter = viewModel.letters[row][column] {
-                                Text(String(letter))
-                                    .textCase(.uppercase)
-                                    .multilineTextAlignment(.center)
-                                    .font(.system(.title).weight(.bold))
-                                    .foregroundColor(Color(.systemBackground))
-                            }
-                        }
-                        .id("matrix_\(row)x\(column)")
+                        LetterBox(letter: viewModel.letters[row][column])
+                            .id("matrix_\(row)x\(column)")
                     }
-                    .id("row_\(row)")
                 }
             }
             TextField("•", text: $viewModel.string)
