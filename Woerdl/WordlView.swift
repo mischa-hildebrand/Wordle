@@ -12,11 +12,7 @@ struct WordlView: View {
 
     @ObservedObject var viewModel = WordlViewModel()
 
-    struct FocusedFieldIndex: Hashable {
-        let index: Int
-    }
-
-    @FocusState var focusedField: FocusedFieldIndex?
+    @FocusState var showTextField: Bool
 
     private var columns: [GridItem] {
         .init(repeating: GridItem(.flexible()), count: viewModel.width)
@@ -25,26 +21,35 @@ struct WordlView: View {
     var squareCount: Int {
         viewModel.width * viewModel.height
     }
-
+    
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
-                ForEach(0...squareCount - 1, id: \.self) { index in
-                    ZStack() {
-                        Rectangle()
-                            .aspectRatio(1, contentMode: .fill)
-                            .cornerRadius(4)
-                        TextField("•", text: $viewModel.letters[index])
-                            .multilineTextAlignment(.center)
-                            .font(.system(.title))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .onChange(of: viewModel.letters[index]) { newValue in
-                                viewModel.next(string: newValue, at: index)
-                                focusedField = .init(index: viewModel.currentIndex)
-                            }
-                            .focused($focusedField, equals: .init(index: index))
+        ZStack {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
+                ForEach(0..<viewModel.height) { row in
+                    ForEach(0..<viewModel.width) { column in
+                        ZStack() {
+                            Rectangle()
+                                .aspectRatio(1, contentMode: .fill)
+                                .cornerRadius(4)
+                            Text(String(viewModel.letters[row][column] ?? Character(" ")))
+                                .multilineTextAlignment(.center)
+                                .font(.system(.title))
+                                .foregroundColor(.white)
+                        }
+                        .id("matrix_\(row)x\(column)")
                     }
+                    .id("row_\(row)")
                 }
+            }
+            TextField("•", text: $viewModel.string)
+                .focused($showTextField)
+                .opacity(0)
+            Button {
+                showTextField.toggle()
+            } label: {
+                Color.clear.contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
         }
         .padding()
     }
