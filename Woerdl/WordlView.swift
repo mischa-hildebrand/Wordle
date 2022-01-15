@@ -34,7 +34,7 @@ struct WordlView: View {
                             Text(String(viewModel.letters[row][column] ?? Character(" ")))
                                 .multilineTextAlignment(.center)
                                 .font(.system(.title))
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(.systemBackground))
                         }
                         .id("matrix_\(row)x\(column)")
                     }
