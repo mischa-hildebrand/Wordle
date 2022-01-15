@@ -42,6 +42,11 @@ struct WordlView: View {
                 }
             }
             TextField("•", text: $viewModel.string)
+                .onChange(of: viewModel.string) { string in
+                    if string.count > squareCount {
+                        viewModel.string = String(string.prefix(squareCount))
+                    }
+                }
                 .focused($showTextField)
                 .opacity(0)
             Button {
