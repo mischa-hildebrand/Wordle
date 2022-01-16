@@ -10,15 +10,14 @@ import SwiftUI
 
 struct WordlView: View {
 
-    @ObservedObject var viewModel = WordlViewModel()
-
-    @FocusState var showTextField: Bool
-
+    @StateObject private var viewModel = WordlViewModel()
+    @FocusState private var showTextField: Bool
+    
     private var columns: [GridItem] {
         .init(repeating: GridItem(.flexible()), count: viewModel.width)
     }
 
-    var squareCount: Int {
+    private var squareCount: Int {
         viewModel.width * viewModel.height
     }
     
@@ -35,6 +34,7 @@ struct WordlView: View {
             TextField("", text: $viewModel.string)
                 .focused($showTextField)
                 .opacity(0)
+                .onChange(of: viewModel.string, perform: viewModel.validateString)
             Button {
                 showTextField.toggle()
             } label: {
