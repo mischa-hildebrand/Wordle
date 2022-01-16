@@ -27,8 +27,8 @@ struct WordlView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
                 ForEach(0..<viewModel.height) { row in
                     ForEach(0..<viewModel.width) { column in
-                        LetterBox(letter: viewModel.letters[row][column])
-                            .id("matrix_\(row)x\(column)")
+                        return LetterBox(letter: viewModel.letters[row][column])
+                            .id("LetterBox_\(row)×\(column)")
                     }
                 }
             }
