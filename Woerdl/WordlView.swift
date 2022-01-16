@@ -27,17 +27,12 @@ struct WordlView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
                 ForEach(0..<viewModel.height) { row in
                     ForEach(0..<viewModel.width) { column in
-                        return LetterBox(letter: viewModel.letters[row][column])
+                        LetterBox(letter: viewModel.letters[row][column])
                             .id("LetterBox_\(row)×\(column)")
                     }
                 }
             }
-            TextField("•", text: $viewModel.string)
-                .onChange(of: viewModel.string) { string in
-                    if string.count > squareCount {
-                        viewModel.string = String(string.prefix(squareCount))
-                    }
-                }
+            TextField("", text: $viewModel.string)
                 .focused($showTextField)
                 .opacity(0)
             Button {
@@ -49,6 +44,7 @@ struct WordlView: View {
         }
         .padding()
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
