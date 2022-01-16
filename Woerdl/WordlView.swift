@@ -32,6 +32,8 @@ struct WordlView: View {
                 }
             }
             TextField("", text: $viewModel.string)
+                .keyboardType(.asciiCapable)
+                .disableAutocorrection(true)
                 .focused($showTextField)
                 .opacity(0)
                 .onChange(of: viewModel.string, perform: viewModel.validateString)
