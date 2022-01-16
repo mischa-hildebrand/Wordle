@@ -27,6 +27,9 @@ class WordlViewModel: ObservableObject {
                     }
                 }
             }
+            if let word = guessedWord() {
+                evaluateWord(word)
+            }
         }
     }
 
@@ -37,6 +40,18 @@ class WordlViewModel: ObservableObject {
             repeating: [Character?](repeating: nil, count: width),
             count: height
         )
+    }
+    
+    private func guessedWord() -> String? {
+        let finishedFullWord = string.count % width == 0
+        guard finishedFullWord else {
+            return nil
+        }
+        return String(string.suffix(width))
+    }
+    
+    private func evaluateWord(_ word: String) {
+        print("Guessed word:", word)
     }
     
 }
