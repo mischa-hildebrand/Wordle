@@ -14,7 +14,8 @@ class WordlViewModel: ObservableObject {
     let height: Int
 
     @Published var letters: [[Character?]]
-    @Published var string: String = "" {
+    
+    var string: String = "" {
         didSet {
             for row in 0..<height {
                 for column in 0..<width {
