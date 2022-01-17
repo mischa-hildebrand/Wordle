@@ -120,14 +120,17 @@ class WordlViewModel: ObservableObject {
     }
     
     private func evaluateWord(_ word: String) {
-        let rowEvaluation: [LetterEvalutation] = word.enumerated().map { index, character in
-            if character == Array(solution)[index] {
-                return .match
-            } else if solution.contains(character) {
-                return .included
-            } else {
-                return .noMatch
-            }
+        let rowEvaluation: [LetterEvalutation] = word
+            .uppercased()
+            .enumerated()
+            .map { index, character in
+                if character == Array(solution.uppercased())[index] {
+                    return .match
+                } else if solution.contains(character) {
+                    return .included
+                } else {
+                    return .noMatch
+                }
         }
         evaluation[activeRow] = rowEvaluation
         handleRowEvaluation(rowEvaluation)
