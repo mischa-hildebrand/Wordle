@@ -66,16 +66,3 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
-
-extension Shape {
-    
-    func style<StrokeStyle: ShapeStyle, FillStyle: ShapeStyle>(
-        withStroke strokeContent: StrokeStyle,
-        lineWidth: CGFloat = 1,
-        fill fillContent: FillStyle
-    ) -> some View {
-        stroke(strokeContent, lineWidth: lineWidth)
-            .background(fill(fillContent))
-    }
-    
-}

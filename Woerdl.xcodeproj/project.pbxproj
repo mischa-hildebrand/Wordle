@@ -15,6 +15,7 @@
 		34F20A312792126000D62EA9 /* WordlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F20A302792126000D62EA9 /* WordlViewModel.swift */; };
 		A1FB90DE2793953500442D90 /* LetterBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FB90DD2793953500442D90 /* LetterBox.swift */; };
 		A1FB90FB279620D000442D90 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FB90FA279620D000442D90 /* Colors.swift */; };
+		A1FB90FD279629C600442D90 /* Shape+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FB90FC279629C600442D90 /* Shape+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		34F20A302792126000D62EA9 /* WordlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordlViewModel.swift; sourceTree = "<group>"; };
 		A1FB90DD2793953500442D90 /* LetterBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterBox.swift; sourceTree = "<group>"; };
 		A1FB90FA279620D000442D90 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		A1FB90FC279629C600442D90 /* Shape+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			children = (
 				34F20A22279204B300D62EA9 /* WoerdlApp.swift */,
 				34F20A24279204B300D62EA9 /* WordlView.swift */,
+				A1FB90FC279629C600442D90 /* Shape+Extensions.swift */,
 				3455E09D2795DA2A0015DA2D /* WordProvider.swift */,
 				A1FB90DD2793953500442D90 /* LetterBox.swift */,
 				A1FB90FA279620D000442D90 /* Colors.swift */,
@@ -152,6 +155,7 @@
 				3455E09E2795DA2A0015DA2D /* WordProvider.swift in Sources */,
 				A1FB90FB279620D000442D90 /* Colors.swift in Sources */,
 				34F20A25279204B300D62EA9 /* WordlView.swift in Sources */,
+				A1FB90FD279629C600442D90 /* Shape+Extensions.swift in Sources */,
 				34F20A23279204B300D62EA9 /* WoerdlApp.swift in Sources */,
 				34F20A312792126000D62EA9 /* WordlViewModel.swift in Sources */,
 				A1FB90DE2793953500442D90 /* LetterBox.swift in Sources */,
