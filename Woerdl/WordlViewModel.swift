@@ -41,15 +41,21 @@ class WordlViewModel: ObservableObject {
     }
     
     func validateString(_ string: String) {
-        var newString = string
-        if !isValidInput(string) {
-            newString = lastString
-        }
-        
-        if let truncatedString = truncateIfNeeded(newString) {
-            newString = truncatedString
-        }
-        
+        let newString = string
+            .transform { string in
+                guard isValidInput(string) else {
+                    return lastString
+                }
+                return string
+            }
+            .transform { string in
+                if let truncatedString = truncateIfNeeded(string) {
+                    return truncatedString
+                } else {
+                    return string
+                }
+            }
+
         self.string = newString
         lastString = newString
     }
@@ -104,4 +110,12 @@ class WordlViewModel: ObservableObject {
         print("Guessed word:", word)
     }
     
+}
+
+extension String {
+
+    func transform(_ transform: (String) -> String) -> String {
+        transform(self)
+    }
+
 }
