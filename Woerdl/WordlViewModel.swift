@@ -65,7 +65,7 @@ class WordlViewModel: ObservableObject {
     }
     
     private func guessedWord() -> String? {
-        let finishedFullWord = string.count % width == 0
+        let finishedFullWord = string.count - activeRow * width == width
         guard finishedFullWord else {
             return nil
         }
@@ -73,7 +73,7 @@ class WordlViewModel: ObservableObject {
     }
     
     private func updateActiveRow(_ string: String) {
-        activeRow = string.count / width
+        activeRow = max(activeRow, string.count / width)
     }
     
     private func isValidInput(_ string: String) -> Bool {
