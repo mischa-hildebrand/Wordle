@@ -73,7 +73,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack {
-                WordlView()
+                WordlView().environment(\.colorScheme, .light)
             }
             VStack {
                 WordlView().environment(\.colorScheme, .dark)
