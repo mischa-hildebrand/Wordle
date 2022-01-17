@@ -126,11 +126,12 @@ class WordlViewModel: ObservableObject {
     }
     
     private func evaluateWord(_ word: String) {
+        let solution = Array(solution.uppercased())
         let rowEvaluation: [LetterEvalutation] = word
             .uppercased()
             .enumerated()
             .map { index, character in
-                if character == Array(solution.uppercased())[index] {
+                if character == solution[index] {
                     return .match
                 } else if solution.contains(character) {
                     return .included
