@@ -48,6 +48,12 @@ struct WordlView: View {
             .buttonStyle(.plain)
         }
         .padding()
+        .alert("You won! 🎉", isPresented: $viewModel.solved) {
+            Button("New Game", role: .none) {
+                viewModel.newGame()
+            }
+        }
+
     }
     
 }

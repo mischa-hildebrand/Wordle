@@ -19,6 +19,7 @@ class WordlViewModel: ObservableObject {
     let width: Int
     let height: Int
 
+    @Published var solved: Bool = false
     @Published var letters: [[Character?]]
     @Published var evaluation: [[LetterEvalutation?]] = []
     @Published var string: String = "" {
@@ -64,9 +65,11 @@ class WordlViewModel: ObservableObject {
     }
 
     func newGame() {
-        solution = wordProvider.generateWord()
+        activeRow = 0
         lastString = ""
         string = ""
+        evaluation = evaluation.map { $0.map { _ in nil }}
+        solution = wordProvider.generateWord()
     }
     
     private func mapStringToLetters() {
@@ -142,7 +145,7 @@ class WordlViewModel: ObservableObject {
 
     private func handleRowEvaluation(_ rowEvalutation: [LetterEvalutation]) {
         if rowEvalutation.solved {
-            print("SOLVED! 🎉")
+            solved = true
         }
     }
     
