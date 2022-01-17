@@ -14,21 +14,21 @@ struct LetterBox: View {
     var body: some View {
         ZStack() {
             RoundedRectangle(cornerRadius: 4)
-                .style(withStroke: .secondary, lineWidth: 2, fill: backgroundColor)
+                .style(withStroke: Color.letterBoxStroke, lineWidth: 1, fill: backgroundColor)
                 .aspectRatio(1, contentMode: .fill)
             if let letter = letter {
                 Text(String(letter))
                     .textCase(.uppercase)
                     .multilineTextAlignment(.center)
                     .font(.system(.title).weight(.bold))
-                    .foregroundColor(Color(.systemBackground))
+                    .foregroundColor(.letterBoxText)
             }
         }
     }
 
     private var backgroundColor: Color {
         guard let evaluation = evaluation else {
-            return .primary
+            return .letterBoxBackground
         }
         return evaluation.backgroundColor
     }
@@ -47,11 +47,11 @@ private extension LetterEvalutation {
     var backgroundColor: Color {
         switch self {
         case .noMatch:
-            return .primary
+            return .letterBoxBackground
         case .included:
-            return .yellow
+            return .included
         case .match:
-            return .green
+            return .matching
         }
     }
 }
