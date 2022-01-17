@@ -42,19 +42,8 @@ class WordlViewModel: ObservableObject {
     
     func validateString(_ string: String) {
         let newString = string
-            .transform { string in
-                guard isValidInput(string) else {
-                    return lastString
-                }
-                return string
-            }
-            .transform { string in
-                if let truncatedString = truncateIfNeeded(string) {
-                    return truncatedString
-                } else {
-                    return string
-                }
-            }
+            .transform(validateAllowedCharacters)
+            .transform(truncateIfNeeded)
 
         self.string = newString
         lastString = newString
@@ -91,8 +80,15 @@ class WordlViewModel: ObservableObject {
         }
         return true
     }
+
+    private func validateAllowedCharacters(_ string: String) -> String {
+        guard isValidInput(string) else {
+            return lastString
+        }
+        return string
+    }
     
-    private func truncateIfNeeded(_ string: String) -> String? {
+    private func truncateIfNeeded(_ string: String) -> String {
         let startIndex = activeRow * width
         let endIndex = startIndex + width - 1
         guard string.count <= endIndex + 1 else {
@@ -103,7 +99,7 @@ class WordlViewModel: ObservableObject {
             // Keep old string in previous rows, delete current row
             return String(lastString.prefix(endIndex))
         }
-        return nil
+        return string
     }
     
     private func evaluateWord(_ word: String) {
