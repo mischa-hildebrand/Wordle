@@ -19,24 +19,24 @@ class WordlViewModel: ObservableObject {
     let width: Int
     let height: Int
 
-    private let wordProvider = WordProvider()
-    private let allowedCharacters = CharacterSet.letters
-    private var solution: String = ""
-    private var activeRow: Int = 0
-    private var evaluation: [[LetterEvalutation]] = []
-    private var lastString: String = "" {
-        didSet {
-            updateActiveRow(lastString)
-        }
-    }
-
     @Published var letters: [[Character?]]
+    @Published var evaluation: [[LetterEvalutation?]] = []
     @Published var string: String = "" {
         didSet {
             mapStringToLetters()
             if let word = guessedWord() {
                 evaluateWord(word)
             }
+        }
+    }
+
+    private let wordProvider = WordProvider()
+    private let allowedCharacters = CharacterSet.letters
+    private var solution: String = ""
+    private var activeRow: Int = 0
+    private var lastString: String = "" {
+        didSet {
+            updateActiveRow(lastString)
         }
     }
 
@@ -47,7 +47,10 @@ class WordlViewModel: ObservableObject {
             repeating: [Character?](repeating: nil, count: width),
             count: height
         )
-        evaluation = Array(repeating: [], count: width)
+        evaluation = Array(
+            repeating: [LetterEvalutation?](repeating: nil, count: width),
+            count: height
+        )
         newGame()
     }
     
