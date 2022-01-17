@@ -30,14 +30,7 @@ struct LetterBox: View {
         guard let evaluation = evaluation else {
             return .primary
         }
-        switch evaluation {
-        case .noMatch:
-            return .primary
-        case .included:
-            return .yellow
-        case .match:
-            return .green
-        }
+        return evaluation.backgroundColor
     }
 }
 
@@ -46,6 +39,19 @@ struct LetterBox_Previews: PreviewProvider {
         Group {
             LetterBox(letter: .init("A"), evaluation: nil)
                 .previewLayout(.fixed(width: 100, height: 100))
+        }
+    }
+}
+
+private extension LetterEvalutation {
+    var backgroundColor: Color {
+        switch self {
+        case .noMatch:
+            return .primary
+        case .included:
+            return .yellow
+        case .match:
+            return .green
         }
     }
 }
