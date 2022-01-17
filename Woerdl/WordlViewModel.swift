@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+enum LetterEvalutation {
+    case noMatch
+    case included
+    case match
+}
+
 class WordlViewModel: ObservableObject {
 
     let width: Int
@@ -15,8 +21,9 @@ class WordlViewModel: ObservableObject {
 
     private let wordProvider = WordProvider()
     private let allowedCharacters = CharacterSet.letters
-    private var currentWord: String = ""
+    private var solution: String = ""
     private var activeRow: Int = 0
+    private var evaluation: [[LetterEvalutation]] = []
     private var lastString: String = "" {
         didSet {
             updateActiveRow(lastString)
@@ -40,6 +47,7 @@ class WordlViewModel: ObservableObject {
             repeating: [Character?](repeating: nil, count: width),
             count: height
         )
+        evaluation = Array(repeating: [], count: width)
         newGame()
     }
     
@@ -53,7 +61,7 @@ class WordlViewModel: ObservableObject {
     }
 
     func newGame() {
-        currentWord = wordProvider.generateWord()
+        solution = wordProvider.generateWord()
         lastString = ""
         string = ""
     }
@@ -112,7 +120,24 @@ class WordlViewModel: ObservableObject {
     }
     
     private func evaluateWord(_ word: String) {
-        print("Guessed word:", word)
+        let rowEvaluation: [LetterEvalutation] = word.enumerated().map { index, character in
+            if character == Array(solution)[index] {
+                return .match
+            } else if solution.contains(character) {
+                return .included
+            } else {
+                return .noMatch
+            }
+        }
+        evaluation[activeRow] = rowEvaluation
+        handleRowEvaluation(rowEvaluation)
+        print("Guessed word:", word, "solution:", solution, "evaluation:", rowEvaluation)
+    }
+
+    private func handleRowEvaluation(_ rowEvalutation: [LetterEvalutation]) {
+        if rowEvalutation.solved {
+            print("SOLVED! 🎉")
+        }
     }
     
 }
@@ -121,6 +146,14 @@ extension String {
 
     func transform(_ transform: (String) -> String) -> String {
         transform(self)
+    }
+
+}
+
+extension Array where Element == LetterEvalutation {
+
+    var solved: Bool {
+        allSatisfy { $0 == .match }
     }
 
 }
