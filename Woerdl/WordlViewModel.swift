@@ -51,9 +51,16 @@ class WordlViewModel: ObservableObject {
     }
     
     func validateString(_ string: String) {
+        var newString = string
         if !isValidInput(string) {
-            self.string = lastString
+            newString = lastString
         }
+        
+        if let truncatedString = truncateIfNeeded(newString) {
+            newString = truncatedString
+        }
+        
+        self.string = newString
         lastString = string
     }
     
@@ -69,18 +76,25 @@ class WordlViewModel: ObservableObject {
         activeRow = string.count / width
     }
     
-    private func isEndOfStringInActiveRow(_ string: String) -> Bool {
-        string.count / width == activeRow
-    }
-    
     private func isValidInput(_ string: String) -> Bool {
         guard string.unicodeScalars.allSatisfy(allowedCharacters.contains) else {
             return false
         }
-        guard string.count >= lastString.count else {
-            return isEndOfStringInActiveRow(string)
-        }
         return true
+    }
+    
+    private func truncateIfNeeded(_ string: String) -> String? {
+        let startIndex = activeRow * width
+        let endIndex = startIndex + width - 1
+        guard string.count <= endIndex + 1 else {
+            // Keep old string in previous rows, use new string in current row, delete subsequent rows
+            return String(lastString.prefix(startIndex)) + string.prefix(endIndex + 1).suffix(width)
+        }
+        guard string.count >= startIndex else {
+            // Keep old string in previous rows, delete current row
+            return String(lastString.prefix(endIndex))
+        }
+        return nil
     }
     
     private func evaluateWord(_ word: String) {
