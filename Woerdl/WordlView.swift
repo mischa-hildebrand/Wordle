@@ -61,8 +61,13 @@ struct WordlView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            WordlView()
+        Group {
+            VStack {
+                WordlView()
+            }
+            VStack {
+                WordlView().environment(\.colorScheme, .dark)
+            }
         }
     }
 }
