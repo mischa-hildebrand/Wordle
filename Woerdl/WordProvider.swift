@@ -8,8 +8,11 @@
 import Foundation
 
 struct WordProvider {
-    private let wordList: [String] = ["Table", "Chair", "Hello", "Happy"]
+    
+    let allowedWords: [String] = ["Table", "Chair", "Hello", "Happy"]
+    
     func generateWord() -> String {
-        wordList.randomElement()!
+        allowedWords.randomElement()!
     }
+    
 }

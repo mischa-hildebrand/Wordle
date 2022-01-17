@@ -38,11 +38,7 @@ class WordlViewModel: ObservableObject {
     private let wordProvider = WordProvider()
     private let allowedCharacters = CharacterSet.letters
     private var activeRow: Int = 0
-    private var lastString: String = "" {
-        didSet {
-            updateActiveRow(lastString)
-        }
-    }
+    private var lastString: String = ""
 
     init(width: Int = 5, height: Int = 6) {
         self.width = width
@@ -96,10 +92,6 @@ class WordlViewModel: ObservableObject {
         return String(string.suffix(width))
     }
     
-    private func updateActiveRow(_ string: String) {
-        activeRow = max(activeRow, string.count / width)
-    }
-    
     private func isValidInput(_ string: String) -> Bool {
         guard string.unicodeScalars.allSatisfy(allowedCharacters.contains) else {
             return false
@@ -127,8 +119,12 @@ class WordlViewModel: ObservableObject {
         }
         return string
     }
-    
+
     private func evaluateWord(_ word: String) {
+        guard wordProvider.allowedWords.map({ $0.uppercased() }).contains(word.uppercased()) else {
+            // TODO: Show alert
+            return
+        }
         let solution = Array(solution.uppercased())
         let rowEvaluation: [LetterEvalutation] = word
             .uppercased()
@@ -144,6 +140,7 @@ class WordlViewModel: ObservableObject {
         }
         evaluation[activeRow] = rowEvaluation
         handleRowEvaluation(rowEvaluation)
+        activeRow += 1
         print("Guessed word:", word, "solution:", solution, "evaluation:", rowEvaluation)
     }
 
