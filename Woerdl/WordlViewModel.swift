@@ -20,6 +20,8 @@ class WordlViewModel: ObservableObject {
     let height: Int
 
     @Published var solved: Bool = false
+    @Published var lost: Bool = false
+    
     @Published var letters: [[Character?]]
     @Published var evaluation: [[LetterEvalutation?]] = []
     @Published var string: String = "" {
@@ -30,10 +32,11 @@ class WordlViewModel: ObservableObject {
             }
         }
     }
-
+    
+    var solution: String = ""
+    
     private let wordProvider = WordProvider()
     private let allowedCharacters = CharacterSet.letters
-    private var solution: String = ""
     private var activeRow: Int = 0
     private var lastString: String = "" {
         didSet {
@@ -147,6 +150,8 @@ class WordlViewModel: ObservableObject {
     private func handleRowEvaluation(_ rowEvalutation: [LetterEvalutation]) {
         if rowEvalutation.solved {
             solved = true
+        } else if activeRow == height - 1 {
+            lost = true
         }
     }
     

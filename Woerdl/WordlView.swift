@@ -54,6 +54,16 @@ struct WordlView: View {
                 viewModel.newGame()
             }
         }
+        .alert("You lost! 🥺", isPresented: $viewModel.lost) {
+            Button("New Game", role: .none) {
+                viewModel.newGame()
+            }
+        } message: {
+            VStack {
+                Text("The word was:\n\(viewModel.solution.uppercased())")
+            }
+        }
+
 
     }
     
