@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3455E09E2795DA2A0015DA2D /* WordProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3455E09D2795DA2A0015DA2D /* WordProvider.swift */; };
 		34F20A23279204B300D62EA9 /* WoerdlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F20A22279204B300D62EA9 /* WoerdlApp.swift */; };
 		34F20A25279204B300D62EA9 /* WordlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F20A24279204B300D62EA9 /* WordlView.swift */; };
 		34F20A27279204B400D62EA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F20A26279204B400D62EA9 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3455E09D2795DA2A0015DA2D /* WordProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordProvider.swift; sourceTree = "<group>"; };
 		34F20A1F279204B300D62EA9 /* Woerdl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Woerdl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F20A22279204B300D62EA9 /* WoerdlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoerdlApp.swift; sourceTree = "<group>"; };
 		34F20A24279204B300D62EA9 /* WordlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordlView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				34F20A22279204B300D62EA9 /* WoerdlApp.swift */,
 				34F20A24279204B300D62EA9 /* WordlView.swift */,
+				3455E09D2795DA2A0015DA2D /* WordProvider.swift */,
 				A1FB90DD2793953500442D90 /* LetterBox.swift */,
 				34F20A302792126000D62EA9 /* WordlViewModel.swift */,
 				34F20A26279204B400D62EA9 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3455E09E2795DA2A0015DA2D /* WordProvider.swift in Sources */,
 				34F20A25279204B300D62EA9 /* WordlView.swift in Sources */,
 				34F20A23279204B300D62EA9 /* WoerdlApp.swift in Sources */,
 				34F20A312792126000D62EA9 /* WordlViewModel.swift in Sources */,

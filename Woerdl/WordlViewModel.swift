@@ -12,8 +12,10 @@ class WordlViewModel: ObservableObject {
 
     let width: Int
     let height: Int
-    
+
+    private let wordProvider = WordProvider()
     private let allowedCharacters = CharacterSet.letters
+    private var currentWord: String = ""
     private var activeRow: Int = 0
     private var lastString: String = "" {
         didSet {
@@ -38,6 +40,7 @@ class WordlViewModel: ObservableObject {
             repeating: [Character?](repeating: nil, count: width),
             count: height
         )
+        newGame()
     }
     
     func validateString(_ string: String) {
@@ -47,6 +50,12 @@ class WordlViewModel: ObservableObject {
 
         self.string = newString
         lastString = newString
+    }
+
+    func newGame() {
+        currentWord = wordProvider.generateWord()
+        lastString = ""
+        string = ""
     }
     
     private func mapStringToLetters() {
