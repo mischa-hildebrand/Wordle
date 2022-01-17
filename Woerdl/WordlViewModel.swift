@@ -13,6 +13,7 @@ class WordlViewModel: ObservableObject {
     let width: Int
     let height: Int
     
+    private let allowedCharacters = CharacterSet.letters
     private var activeRow: Int = 0
     private var lastString: String = "" {
         didSet {
@@ -73,6 +74,9 @@ class WordlViewModel: ObservableObject {
     }
     
     private func isValidInput(_ string: String) -> Bool {
+        guard string.unicodeScalars.allSatisfy(allowedCharacters.contains) else {
+            return false
+        }
         guard string.count >= lastString.count else {
             return isEndOfStringInActiveRow(string)
         }
