@@ -51,7 +51,7 @@ class WordlViewModel: ObservableObject {
         }
         
         self.string = newString
-        lastString = string
+        lastString = newString
     }
     
     private func mapStringToLetters() {
