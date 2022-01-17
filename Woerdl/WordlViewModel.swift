@@ -22,19 +22,9 @@ class WordlViewModel: ObservableObject {
     }
 
     @Published var letters: [[Character?]]
-    
     @Published var string: String = "" {
         didSet {
-            for row in 0..<height {
-                for column in 0..<width {
-                    let currentIndex = row * width + column
-                    if currentIndex >= string.count {
-                        letters[row][column] = nil
-                    } else {
-                        letters[row][column] = [Character](string)[currentIndex]
-                    }
-                }
-            }
+            mapStringToLetters()
             if let word = guessedWord() {
                 evaluateWord(word)
             }
@@ -62,6 +52,19 @@ class WordlViewModel: ObservableObject {
         
         self.string = newString
         lastString = string
+    }
+    
+    private func mapStringToLetters() {
+        for row in 0..<height {
+            for column in 0..<width {
+                let currentIndex = row * width + column
+                if currentIndex >= string.count {
+                    letters[row][column] = nil
+                } else {
+                    letters[row][column] = [Character](string)[currentIndex]
+                }
+            }
+        }
     }
     
     private func guessedWord() -> String? {
