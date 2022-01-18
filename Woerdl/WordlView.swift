@@ -53,7 +53,7 @@ struct WordlView: View {
         }
         .padding([.horizontal], 32)
         .padding([.vertical], 24)
-        .background(.background)
+        .background(Color.appBackground)
         .alert("You won! 🎉", isPresented: $viewModel.solved) {
             Button("OK", role: .none) {
                 viewModel.solved = false

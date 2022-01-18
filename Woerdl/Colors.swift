@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Color {
     
-    static let background = Color("Background")
+    static let appBackground = Color("AppBackground")
     static let letterBoxBackground = Color("LetterBoxBackground")
     static let letterBoxStroke = Color("LetterBoxStroke")
     static let letterBoxText = Color("LetterBoxText")
