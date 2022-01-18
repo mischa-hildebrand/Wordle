@@ -24,16 +24,16 @@ struct WordlView: View {
     var body: some View {
         VStack {
             ZStack {
-                LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
-                    ForEach(0..<viewModel.height) { row in
-                        ForEach(0..<viewModel.width) { column in
-                            LetterBox(
-                                letter: viewModel.letters[row][column],
-                                evaluation: viewModel.evaluation[row][column]
-                            )
-                                .id("LetterBox_\(row)×\(column)")
-                        }
-                    }
+                MatrixGrid(
+                    width: viewModel.width,
+                    height: viewModel.height,
+                    spacing: 8
+                ) { row, column in
+                    LetterBox(
+                        letter: viewModel.letters[row][column],
+                        evaluation: viewModel.evaluation[row][column]
+                    )
+                    .id("LetterBox_\(row)×\(column)")
                 }
                 TextField("", text: $viewModel.string)
                     .keyboardType(.asciiCapable)
@@ -102,3 +102,4 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+
