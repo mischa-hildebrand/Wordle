@@ -12,10 +12,6 @@ struct WordlView: View {
 
     @StateObject private var viewModel = WordlViewModel()
     @FocusState private var showTextField: Bool
-
-    private var squareCount: Int {
-        viewModel.width * viewModel.height
-    }
     
     var body: some View {
         VStack {
