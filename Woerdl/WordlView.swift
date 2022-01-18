@@ -32,7 +32,6 @@ struct WordlView: View {
                     .disableAutocorrection(true)
                     .focused($showTextField)
                     .opacity(0)
-                    .onChange(of: viewModel.string, perform: viewModel.validateString)
                 Button {
                     showTextField.toggle()
                 } label: {

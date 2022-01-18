@@ -21,12 +21,17 @@ class WordlViewModel: ObservableObject {
 
     @Published var solved: Bool = false
     @Published var lost: Bool = false
-    
     @Published var letters: [[Character?]]
     @Published var evaluation: [[LetterEvalutation?]] = []
-    @Published var string: String = "" {
-        didSet {
-            mapStringToLetters()
+    @Published private var validatedString: String = ""
+
+    var string: String {
+        get {
+            validatedString
+        }
+        set {
+            validatedString = validateString(newValue, previousString: string)
+            mapStringToLetters(validatedString)
             if let word = guessedWord() {
                 evaluateWord(word)
             }
@@ -38,7 +43,6 @@ class WordlViewModel: ObservableObject {
     private let wordProvider = WordProvider()
     private let allowedCharacters = CharacterSet.letters
     private var activeRow: Int = 0
-    private var lastString: String = ""
 
     init(width: Int = 5, height: Int = 6) {
         self.width = width
@@ -53,32 +57,32 @@ class WordlViewModel: ObservableObject {
         )
         newGame()
     }
-    
-    func validateString(_ string: String) {
-        let newString = string
-            .transform(validateAllowedCharacters)
-            .transform(truncateIfNeeded)
-
-        self.string = newString
-        lastString = newString
-    }
 
     func newGame() {
         activeRow = 0
-        lastString = ""
-        string = ""
+        validatedString = ""
         evaluation = evaluation.map { $0.map { _ in nil }}
         solution = wordProvider.generateWord()
     }
+
+    private func validateString(_ string: String, previousString: String) -> String {
+        string
+            .transform { string in
+                validateAllowedCharacters(string, previousString: previousString)
+            }
+            .transform { string in
+                truncateIfNeeded(string, previousString: previousString)
+            }
+    }
     
-    private func mapStringToLetters() {
+    private func mapStringToLetters(_ string: String) {
         for row in 0..<height {
             for column in 0..<width {
                 let currentIndex = row * width + column
-                if currentIndex >= string.count {
+                if currentIndex >= validatedString.count {
                     letters[row][column] = nil
                 } else {
-                    letters[row][column] = [Character](string)[currentIndex]
+                    letters[row][column] = [Character](validatedString)[currentIndex]
                 }
             }
         }
@@ -99,23 +103,23 @@ class WordlViewModel: ObservableObject {
         return true
     }
 
-    private func validateAllowedCharacters(_ string: String) -> String {
+    private func validateAllowedCharacters(_ string: String, previousString: String) -> String {
         guard isValidInput(string) else {
-            return lastString
+            return previousString
         }
         return string
     }
     
-    private func truncateIfNeeded(_ string: String) -> String {
+    private func truncateIfNeeded(_ string: String, previousString: String) -> String {
         let startIndex = activeRow * width
         let endIndex = startIndex + width - 1
         guard string.count <= endIndex + 1 else {
             // Keep old string in previous rows, use new string in current row, delete subsequent rows
-            return String(lastString.prefix(startIndex)) + string.prefix(endIndex + 1).suffix(width)
+            return String(previousString.prefix(startIndex)) + string.prefix(endIndex + 1).suffix(width)
         }
         guard string.count >= startIndex else {
             // Keep old string in previous rows, delete current row
-            return String(lastString.prefix(endIndex))
+            return String(previousString.prefix(endIndex))
         }
         return string
     }
