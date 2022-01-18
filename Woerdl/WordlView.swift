@@ -22,38 +22,51 @@ struct WordlView: View {
     }
     
     var body: some View {
-        ZStack {
-            LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
-                ForEach(0..<viewModel.height) { row in
-                    ForEach(0..<viewModel.width) { column in
-                        LetterBox(
-                            letter: viewModel.letters[row][column],
-                            evaluation: viewModel.evaluation[row][column]
-                        )
-                        .id("LetterBox_\(row)×\(column)")
+        VStack {
+            ZStack {
+                LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
+                    ForEach(0..<viewModel.height) { row in
+                        ForEach(0..<viewModel.width) { column in
+                            LetterBox(
+                                letter: viewModel.letters[row][column],
+                                evaluation: viewModel.evaluation[row][column]
+                            )
+                                .id("LetterBox_\(row)×\(column)")
+                        }
                     }
                 }
+                TextField("", text: $viewModel.string)
+                    .keyboardType(.asciiCapable)
+                    .disableAutocorrection(true)
+                    .focused($showTextField)
+                    .opacity(0)
+                    .onChange(of: viewModel.string, perform: viewModel.validateString)
+                Button {
+                    showTextField.toggle()
+                } label: {
+                    Color.clear.contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
             }
-            TextField("", text: $viewModel.string)
-                .keyboardType(.asciiCapable)
-                .disableAutocorrection(true)
-                .focused($showTextField)
-                .opacity(0)
-                .onChange(of: viewModel.string, perform: viewModel.validateString)
-            Button {
-                showTextField.toggle()
-            } label: {
-                Color.clear.contentShape(Rectangle())
+            Button("New Game") {
+                withAnimation {
+                    viewModel.newGame()
+                }
             }
-            .buttonStyle(.plain)
+            .padding(8)
         }
-        .padding()
-        .background(Color.background)
+        .padding([.horizontal], 32)
+        .padding([.vertical], 24)
+        .background(.background)
         .alert("You won! 🎉", isPresented: $viewModel.solved) {
-            newGameButton()
+            Button("OK", role: .none) {
+                viewModel.solved = false
+            }
         }
         .alert("You lost! 🥺", isPresented: $viewModel.lost) {
-            newGameButton()
+            Button("OK", role: .none) {
+                viewModel.lost = false
+            }
         } message: {
             VStack {
                 Text("The word was:\n\(viewModel.solution.uppercased())")
@@ -67,14 +80,6 @@ struct WordlView: View {
         .onChange(of: viewModel.lost) { lost in
             if lost {
                 vibrate(type: .error)
-            }
-        }
-    }
-    
-    private func newGameButton() -> Button<Text> {
-        Button("New Game", role: .none) {
-            withAnimation {
-                viewModel.newGame()
             }
         }
     }
