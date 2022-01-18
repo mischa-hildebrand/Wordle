@@ -59,6 +59,16 @@ struct WordlView: View {
                 Text("The word was:\n\(viewModel.solution.uppercased())")
             }
         }
+        .onChange(of: viewModel.solved) { solved in
+            if solved {
+                vibrate(type: .success)
+            }
+        }
+        .onChange(of: viewModel.lost) { lost in
+            if lost {
+                vibrate(type: .error)
+            }
+        }
     }
     
     private func newGameButton() -> Button<Text> {
@@ -69,6 +79,10 @@ struct WordlView: View {
         }
     }
     
+    private func vibrate(type: UINotificationFeedbackGenerator.FeedbackType) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(type)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
