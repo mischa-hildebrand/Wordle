@@ -50,21 +50,23 @@ struct WordlView: View {
         .padding()
         .background(Color.background)
         .alert("You won! 🎉", isPresented: $viewModel.solved) {
-            Button("New Game", role: .none) {
-                viewModel.newGame()
-            }
+            newGameButton()
         }
         .alert("You lost! 🥺", isPresented: $viewModel.lost) {
-            Button("New Game", role: .none) {
-                viewModel.newGame()
-            }
+            newGameButton()
         } message: {
             VStack {
                 Text("The word was:\n\(viewModel.solution.uppercased())")
             }
         }
-
-
+    }
+    
+    private func newGameButton() -> Button<Text> {
+        Button("New Game", role: .none) {
+            withAnimation {
+                viewModel.newGame()
+            }
+        }
     }
     
 }
