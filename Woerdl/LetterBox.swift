@@ -15,12 +15,12 @@ struct LetterBox: View {
         ZStack() {
             RoundedRectangle(cornerRadius: 4)
                 .style(withStroke: Color.letterBoxStroke, lineWidth: 1, fill: backgroundColor)
-                .aspectRatio(1, contentMode: .fill)
+                .aspectRatio(1, contentMode: .fit)
             if let letter = letter {
                 Text(String(letter))
                     .textCase(.uppercase)
                     .multilineTextAlignment(.center)
-                    .font(.system(.title).weight(.bold))
+                    .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundColor(.letterBoxText)
             }
         }
