@@ -14,7 +14,7 @@ struct MatrixGrid<Content: View>: View {
     let width: Int
     let height: Int
     let spacing: CGFloat
-    private let makeGridView: (_ row: Int, _ column: Int) -> Content
+    private let makeGridView: GridViewFactory
 
     private var columns: [GridItem] {
         .init(repeating: GridItem(.flexible()), count: width)
