@@ -43,6 +43,18 @@ struct LetterBox_Previews: PreviewProvider {
             LetterBox(letter: .init("A"), evaluation: nil)
                 .previewLayout(.fixed(width: 100, height: 100))
                 .environment(\.colorScheme, .dark)
+            LetterBox(letter: .init("A"), evaluation: .included)
+                .previewLayout(.fixed(width: 100, height: 100))
+                .environment(\.colorScheme, .light)
+            LetterBox(letter: .init("A"), evaluation: .included)
+                .previewLayout(.fixed(width: 100, height: 100))
+                .environment(\.colorScheme, .dark)
+            LetterBox(letter: .init("A"), evaluation: .match)
+                .previewLayout(.fixed(width: 100, height: 100))
+                .environment(\.colorScheme, .light)
+            LetterBox(letter: .init("A"), evaluation: .match)
+                .previewLayout(.fixed(width: 100, height: 100))
+                .environment(\.colorScheme, .dark)
         }
     }
 }

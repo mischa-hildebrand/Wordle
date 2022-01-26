@@ -59,9 +59,7 @@ class WordlViewModel: ObservableObject {
             .transform { string in
                 truncateIfNeeded(string, previousString: previousString)
             }
-        if validatedString != previousString {
-            self.string = validatedString
-        }
+        string = validatedString
         mapStringToLetters(validatedString)
         if let word = guessedWord() {
             evaluateWord(word)
@@ -118,10 +116,6 @@ class WordlViewModel: ObservableObject {
     }
 
     private func evaluateWord(_ word: String) {
-        guard wordProvider.allowedWords.map({ $0.uppercased() }).contains(word.uppercased()) else {
-            // TODO: Show alert
-            return
-        }
         let solution = Array(solution.uppercased())
         let rowEvaluation: [LetterEvalutation] = word
             .uppercased()
