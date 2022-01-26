@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 enum LetterEvalutation {
     case noMatch
@@ -23,21 +22,8 @@ class WordlViewModel: ObservableObject {
     @Published var lost: Bool = false
     @Published var letters: [[Character?]]
     @Published var evaluation: [[LetterEvalutation?]] = []
-    @Published private var validatedString: String = ""
+    @Published var string: String = ""
 
-    var string: String {
-        get {
-            validatedString
-        }
-        set {
-            validatedString = validateString(newValue, previousString: string)
-            mapStringToLetters(validatedString)
-            if let word = guessedWord() {
-                evaluateWord(word)
-            }
-        }
-    }
-    
     var solution: String = ""
     
     private let wordProvider = WordProvider()
@@ -48,11 +34,11 @@ class WordlViewModel: ObservableObject {
         self.width = width
         self.height = height
         letters = Array(
-            repeating: [Character?](repeating: nil, count: width),
+            repeating: .init(repeating: nil, count: width),
             count: height
         )
         evaluation = Array(
-            repeating: [LetterEvalutation?](repeating: nil, count: width),
+            repeating: .init(repeating: nil, count: width),
             count: height
         )
         newGame()
@@ -60,29 +46,36 @@ class WordlViewModel: ObservableObject {
 
     func newGame() {
         activeRow = 0
-        validatedString = ""
+        string = ""
         evaluation = evaluation.map { $0.map { _ in nil }}
         solution = wordProvider.generateWord()
     }
 
-    private func validateString(_ string: String, previousString: String) -> String {
-        string
+    func validateString(_ newString: String, previousString: String) {
+        let validatedString = newString
             .transform { string in
                 validateAllowedCharacters(string, previousString: previousString)
             }
             .transform { string in
                 truncateIfNeeded(string, previousString: previousString)
             }
+        if validatedString != previousString {
+            self.string = validatedString
+        }
+        mapStringToLetters(validatedString)
+        if let word = guessedWord() {
+            evaluateWord(word)
+        }
     }
     
     private func mapStringToLetters(_ string: String) {
         for row in 0..<height {
             for column in 0..<width {
                 let currentIndex = row * width + column
-                if currentIndex >= validatedString.count {
+                if currentIndex >= string.count {
                     letters[row][column] = nil
                 } else {
-                    letters[row][column] = [Character](validatedString)[currentIndex]
+                    letters[row][column] = [Character](string)[currentIndex]
                 }
             }
         }

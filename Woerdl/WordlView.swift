@@ -11,11 +11,19 @@ import SwiftUI
 struct WordlView: View {
 
     @StateObject private var viewModel = WordlViewModel()
-    @FocusState private var showTextField: Bool
-    
+    @FocusState private var textFieldActive: Bool
+
     var body: some View {
         VStack {
             ZStack {
+                TextField("", text: $viewModel.string)
+                    .keyboardType(.asciiCapable)
+                    .disableAutocorrection(true)
+                    .focused($textFieldActive)
+                    .opacity(0)
+                    .onChange(of: viewModel.string) { [oldString = viewModel.string] newString in
+                        viewModel.validateString(newString, previousString: oldString)
+                    }
                 MatrixGrid(
                     width: viewModel.width,
                     height: viewModel.height,
@@ -27,17 +35,11 @@ struct WordlView: View {
                     )
                     .id("LetterBox_\(row)×\(column)")
                 }
-                TextField("", text: $viewModel.string)
-                    .keyboardType(.asciiCapable)
-                    .disableAutocorrection(true)
-                    .focused($showTextField)
-                    .opacity(0)
                 Button {
-                    showTextField.toggle()
+                    textFieldActive.toggle()
                 } label: {
-                    Color.clear.contentShape(Rectangle())
+                    Color.clear
                 }
-                .buttonStyle(.plain)
             }
             Button("New Game") {
                 withAnimation {
