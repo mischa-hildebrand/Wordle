@@ -69,12 +69,12 @@ class WordlViewModel: ObservableObject {
     private func mapStringToLetters(_ string: String) {
         for row in 0..<height {
             for column in 0..<width {
-                let currentIndex = row * width + column
-                if currentIndex >= string.count {
+                let index = row * width + column
+                guard index < string.count else {
                     letters[row][column] = nil
-                } else {
-                    letters[row][column] = [Character](string)[currentIndex]
+                    return
                 }
+                letters[row][column] = [Character](string)[index]
             }
         }
     }
@@ -88,10 +88,8 @@ class WordlViewModel: ObservableObject {
     }
     
     private func isValidInput(_ string: String) -> Bool {
-        guard string.unicodeScalars.allSatisfy(allowedCharacters.contains) else {
-            return false
-        }
-        return true
+        let allowedCharacters = CharacterSet.letters
+        return string.unicodeScalars.allSatisfy(allowedCharacters.contains)
     }
 
     private func validateAllowedCharacters(_ string: String, previousString: String) -> String {
