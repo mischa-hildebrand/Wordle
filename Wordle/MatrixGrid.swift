@@ -1,6 +1,6 @@
 //
 //  MatrixGrid.swift
-//  Woerdl
+//  Wordle
 //
 //  Created by Mischa Hildebrand on 18.01.22.
 //

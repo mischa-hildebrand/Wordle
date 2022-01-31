@@ -1,6 +1,6 @@
 //
 //  WordProvider.swift
-//  Woerdl
+//  Wordle
 //
 //  Created by Mischa Hildebrand on 17.01.22.
 //

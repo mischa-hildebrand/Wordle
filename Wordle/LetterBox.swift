@@ -1,6 +1,6 @@
 //
 //  LetterBox.swift
-//  Woerdl
+//  Wordle
 //
 //  Created by Mischa (Privat) on 16.01.22.
 //

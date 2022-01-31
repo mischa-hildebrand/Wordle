@@ -1,6 +1,6 @@
 //
 //  Shape+Extensions.swift
-//  Woerdl
+//  Wordle
 //
 //  Created by Mischa (Privat) on 17.01.22.
 //
