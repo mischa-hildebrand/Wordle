@@ -1,5 +1,5 @@
 //
-//  WordlViewModel.swift
+//  WordleBoardViewModel.swift
 //  Woerdl
 //
 //  Created by Mischa Hildebrand on 14.01.22.
@@ -13,7 +13,7 @@ enum LetterEvalutation {
     case match
 }
 
-class WordlViewModel: ObservableObject {
+class WordleBoardViewModel: ObservableObject {
 
     let width: Int
     let height: Int

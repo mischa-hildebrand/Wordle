@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  WordleBoard.swift
 //  Woerdl
 //
 //  Created by Mischa Hildebrand on 14.01.22.
@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WordleBoard: View {
 
-    @StateObject private var viewModel = WordlViewModel()
+    @StateObject private var viewModel = WordleBoardViewModel()
     @FocusState private var textFieldActive: Bool
 
     var body: some View {
