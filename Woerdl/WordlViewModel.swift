@@ -22,11 +22,14 @@ class WordlViewModel: ObservableObject {
     @Published var lost: Bool = false
     @Published var letters: [[Character?]]
     @Published var evaluation: [[LetterEvalutation?]] = []
-    @Published var string: String = ""
+    @Published var string: String = "" {
+        didSet {
+            mapStringToLetters(string)
+        }
+    }
 
     var solution: String = ""
-    
-    private let wordProvider = WordProvider()
+
     private let allowedCharacters = CharacterSet.letters
     private var activeRow: Int = 0
 
@@ -48,7 +51,7 @@ class WordlViewModel: ObservableObject {
         activeRow = 0
         string = ""
         evaluation = evaluation.map { $0.map { _ in nil }}
-        solution = wordProvider.generateWord()
+        solution = WordProvider.generateWord()
     }
 
     func validateString(_ newString: String, previousString: String) {
@@ -57,10 +60,9 @@ class WordlViewModel: ObservableObject {
                 validateAllowedCharacters(string, previousString: previousString)
             }
             .transform { string in
-                truncateIfNeeded(string, previousString: previousString)
+                validateActiveRowEdit(string, previousString: previousString)
             }
         string = validatedString
-        mapStringToLetters(validatedString)
         if let word = guessedWord() {
             evaluateWord(word)
         }
@@ -99,7 +101,7 @@ class WordlViewModel: ObservableObject {
         return string
     }
     
-    private func truncateIfNeeded(_ string: String, previousString: String) -> String {
+    private func validateActiveRowEdit(_ string: String, previousString: String) -> String {
         let startIndex = activeRow * width
         let endIndex = startIndex + width - 1
         guard string.count <= endIndex + 1 else {
@@ -128,12 +130,12 @@ class WordlViewModel: ObservableObject {
                 }
         }
         evaluation[activeRow] = rowEvaluation
-        handleRowEvaluation(rowEvaluation)
+        checkWinOrLose(rowEvaluation)
         activeRow += 1
         print("Guessed word:", word, "solution:", solution, "evaluation:", rowEvaluation)
     }
 
-    private func handleRowEvaluation(_ rowEvalutation: [LetterEvalutation]) {
+    private func checkWinOrLose(_ rowEvalutation: [LetterEvalutation]) {
         if rowEvalutation.solved {
             solved = true
         } else if activeRow == height - 1 {

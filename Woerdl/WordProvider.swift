@@ -9,10 +9,10 @@ import Foundation
 
 struct WordProvider {
     
-    let allowedWords: [String] = ["Table", "Chair", "Hello", "Happy"]
+    static let allowedWords: [String] = ["Table", "Chair", "Hello", "Happy"]
     
-    func generateWord() -> String {
-        allowedWords.randomElement()!
+    static func generateWord() -> String {
+        Self.allowedWords.randomElement()!
     }
     
 }
