@@ -31,7 +31,7 @@ struct WordleBoard: View {
                 ) { row, column in
                     LetterBox(
                         letter: viewModel.letters[row][column],
-                        evaluation: viewModel.evaluation[row][column]
+                        evaluation: viewModel.evaluations[row][column]
                     )
                 }
                 .frame(maxHeight: .infinity)

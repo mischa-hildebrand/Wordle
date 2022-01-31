@@ -21,7 +21,7 @@ class WordleBoardViewModel: ObservableObject {
     @Published var solved: Bool = false
     @Published var lost: Bool = false
     @Published var letters: [[Character?]]
-    @Published var evaluation: [[LetterEvaluation?]] = []
+    @Published var evaluations: [[LetterEvaluation?]] = []
     @Published var string: String = "" {
         didSet {
             mapStringToLetters(string)
@@ -40,7 +40,7 @@ class WordleBoardViewModel: ObservableObject {
             repeating: .init(repeating: nil, count: width),
             count: height
         )
-        evaluation = Array(
+        evaluations = Array(
             repeating: .init(repeating: nil, count: width),
             count: height
         )
@@ -50,7 +50,7 @@ class WordleBoardViewModel: ObservableObject {
     func newGame() {
         activeRow = 0
         string = ""
-        evaluation = evaluation.map { $0.map { _ in nil }}
+        evaluations = evaluations.map { $0.map { _ in nil }}
         solution = WordProvider.generateWord()
     }
 
@@ -130,7 +130,7 @@ class WordleBoardViewModel: ObservableObject {
                     return .noMatch
                 }
         }
-        evaluation[activeRow] = rowEvaluation
+        evaluations[activeRow] = rowEvaluation
         checkWinOrLose(rowEvaluation)
         activeRow += 1
         print("Guessed word:", word, "solution:", solution, "evaluation:", rowEvaluation)
