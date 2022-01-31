@@ -61,9 +61,7 @@ struct WordlView: View {
                 viewModel.lost = false
             }
         } message: {
-            VStack {
-                Text("The word was:\n\(viewModel.solution.uppercased())")
-            }
+            Text("The word was:\n" + viewModel.solution.uppercased())
         }
         .onChange(of: viewModel.solved) { solved in
             if solved {
