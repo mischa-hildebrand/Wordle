@@ -25,6 +25,7 @@ struct MatrixGrid<Content: View>: View {
             ForEach(0..<height) { row in
                 ForEach(0..<width) { column in
                     gridItemFactory(row, column)
+                        .id("MatrixGrid_Item_\(row)×\(column)")
                 }
             }
         }

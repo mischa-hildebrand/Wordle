@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LetterBox: View {
     let letter: Character?
-    let evaluation: LetterEvalutation?
+    let evaluation: LetterEvaluation?
     
     var body: some View {
         ZStack() {
@@ -56,7 +56,7 @@ struct LetterBox_Previews: PreviewProvider {
     }
 }
 
-private extension LetterEvalutation {
+private extension LetterEvaluation {
     var color: Color {
         switch self {
         case .noMatch:

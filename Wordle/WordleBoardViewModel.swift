@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LetterEvalutation {
+enum LetterEvaluation {
     case noMatch
     case included
     case match
@@ -21,7 +21,7 @@ class WordleBoardViewModel: ObservableObject {
     @Published var solved: Bool = false
     @Published var lost: Bool = false
     @Published var letters: [[Character?]]
-    @Published var evaluation: [[LetterEvalutation?]] = []
+    @Published var evaluation: [[LetterEvaluation?]] = []
     @Published var string: String = "" {
         didSet {
             mapStringToLetters(string)
@@ -118,7 +118,7 @@ class WordleBoardViewModel: ObservableObject {
 
     private func evaluateWord(_ word: String) {
         let solution = Array(solution.uppercased())
-        let rowEvaluation: [LetterEvalutation] = word
+        let rowEvaluation: [LetterEvaluation] = word
             .uppercased()
             .enumerated()
             .map { index, character in
@@ -136,8 +136,8 @@ class WordleBoardViewModel: ObservableObject {
         print("Guessed word:", word, "solution:", solution, "evaluation:", rowEvaluation)
     }
 
-    private func checkWinOrLose(_ rowEvalutation: [LetterEvalutation]) {
-        if rowEvalutation.solved {
+    private func checkWinOrLose(_ rowEvaluation: [LetterEvaluation]) {
+        if rowEvaluation.solved {
             solved = true
         } else if activeRow == height - 1 {
             lost = true
@@ -154,7 +154,7 @@ extension String {
 
 }
 
-extension Array where Element == LetterEvalutation {
+extension Array where Element == LetterEvaluation {
 
     var solved: Bool {
         allSatisfy { $0 == .match }
