@@ -14,7 +14,7 @@ struct LetterBox: View {
     var body: some View {
         ZStack() {
             RoundedRectangle(cornerRadius: 4)
-                .style(withStroke: Color.letterBoxStroke, lineWidth: 1, fill: backgroundColor)
+                .style(withStroke: Color.letterBoxStroke, lineWidth: 1, fill: boxColor)
                 .aspectRatio(1, contentMode: .fit)
             if let letter = letter {
                 Text(String(letter))
@@ -25,11 +25,11 @@ struct LetterBox: View {
         }
     }
 
-    private var backgroundColor: Color {
+    private var boxColor: Color {
         guard let evaluation = evaluation else {
             return .letterBoxBackground
         }
-        return evaluation.backgroundColor
+        return evaluation.color
     }
 }
 
@@ -59,7 +59,7 @@ struct LetterBox_Previews: PreviewProvider {
 }
 
 private extension LetterEvalutation {
-    var backgroundColor: Color {
+    var color: Color {
         switch self {
         case .noMatch:
             return .letterBoxBackground
