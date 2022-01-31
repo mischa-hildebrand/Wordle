@@ -70,11 +70,11 @@ class WordlViewModel: ObservableObject {
         for row in 0..<height {
             for column in 0..<width {
                 let index = row * width + column
-                guard index < string.count else {
+                if index < string.count {
+                    letters[row][column] = [Character](string)[index]
+                } else {
                     letters[row][column] = nil
-                    return
                 }
-                letters[row][column] = [Character](string)[index]
             }
         }
     }
