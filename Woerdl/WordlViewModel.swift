@@ -56,6 +56,7 @@ class WordlViewModel: ObservableObject {
 
     func validateString(_ newString: String, previousString: String) {
         let validatedString = newString
+            .uppercased()
             .transform { string in
                 validateAllowedCharacters(string, previousString: previousString)
             }

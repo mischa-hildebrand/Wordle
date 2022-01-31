@@ -18,7 +18,6 @@ struct LetterBox: View {
                 .aspectRatio(1, contentMode: .fit)
             if let letter = letter {
                 Text(String(letter))
-                    .textCase(.uppercase)
                     .multilineTextAlignment(.center)
                     .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundColor(.letterBoxText)
