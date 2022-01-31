@@ -21,7 +21,7 @@ struct MatrixGrid<Content: View>: View {
     }
 
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
+        LazyVGrid(columns: columns, alignment: .center, spacing: spacing) {
             ForEach(0..<height) { row in
                 ForEach(0..<width) { column in
                     gridItemFactory(row, column)
