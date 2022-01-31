@@ -34,11 +34,10 @@ struct WordleBoard: View {
                         evaluation: viewModel.evaluation[row][column]
                     )
                 }
-                Button {
-                    textFieldActive.toggle()
-                } label: {
-                    Color.clear
-                }
+                .frame(maxHeight: .infinity)
+            }
+            .onTapGesture {
+                textFieldActive.toggle()
             }
             Button("New Game") {
                 withAnimation {
