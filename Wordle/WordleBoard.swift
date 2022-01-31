@@ -35,9 +35,9 @@ struct WordleBoard: View {
                     )
                 }
                 .frame(maxHeight: .infinity)
-            }
-            .onTapGesture {
-                textFieldActive.toggle()
+                .onTapGesture {
+                    textFieldActive.toggle()
+                }
             }
             Button("New Game") {
                 withAnimation {
