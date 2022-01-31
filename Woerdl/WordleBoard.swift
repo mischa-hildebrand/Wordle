@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-struct WordlView: View {
+struct WordleBoard: View {
 
     @StateObject private var viewModel = WordlViewModel()
     @FocusState private var textFieldActive: Bool
@@ -84,10 +84,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack {
-                WordlView().environment(\.colorScheme, .light)
+                WordleBoard().environment(\.colorScheme, .light)
             }
             VStack {
-                WordlView().environment(\.colorScheme, .dark)
+                WordleBoard().environment(\.colorScheme, .dark)
             }
         }
     }
