@@ -33,7 +33,6 @@ struct WordlView: View {
                         letter: viewModel.letters[row][column],
                         evaluation: viewModel.evaluation[row][column]
                     )
-                    .id("LetterBox_\(row)×\(column)")
                 }
                 Button {
                     textFieldActive.toggle()
